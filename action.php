@@ -11,14 +11,16 @@ if(!plugin_load('helper', 'oauth')){
 
 /**
  * Service Implementation for oAuth drkserver authentication
+ * 
+ * @author Daniel Weisshaar <daniwei-dev@gmx.de>
  */
 class action_plugin_oauthdrkserver extends Adapter
 {
-    private $isDemoMode = false;
-
     /** @inheritdoc */
     public function registerServiceClass()
     {
+        $useDemoEnv = $this->getConf('demoenv');
+        DRKServer::setUseDemoEnvironment($useDemoEnv);
         return DRKServer::class;
     }
 
@@ -31,7 +33,7 @@ class action_plugin_oauthdrkserver extends Adapter
         $result = json_decode($oauth->request(DRKServer::getUserInfoEndpoint()), true);
         
         $data['user'] = $result[DRKServer::USERINFO_JSON_USER];
-        $data['name'] = $result[DRKServer::USERINFO_JSON_NAME];
+        $data['name'] = $result[DRKServer::USERINFO_JSON_NAME_FIRST] . ' ' . $result[DRKServer::USERINFO_JSON_NAME_LAST];
         $data['mail'] = $result[DRKServer::USERINFO_JSON_MAIL];
         $data['grps'] = $result[DRKServer::USERINFO_JSON_GRPS];
 
