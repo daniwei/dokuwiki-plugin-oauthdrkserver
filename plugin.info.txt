@@ -1,0 +1,7 @@
+base   oauthdrkserver
+author Daniel Weisshaar
+email  daniwei-dev@gmx.de
+date   2022-03-16
+name   oauth drkserver Service
+desc   drkserver Service for use with the oAuth Plugin
+url    http://dokuwiki.org/plugin:oauthdrkserver
